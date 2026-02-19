@@ -1,0 +1,7 @@
+fastlane/keys/
+fastlane/api_key.json
+*.p8
+*.p12
+*.cer
+build/
+DerivedData/

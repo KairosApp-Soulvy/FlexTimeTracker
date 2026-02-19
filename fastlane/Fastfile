@@ -1,0 +1,92 @@
+default_platform(:ios)
+
+PROJECT_NAME = "FlexTimeTracker"
+SCHEME_NAME = "FlexTimeTracker"
+BUNDLE_ID = "com.kovamart.flextimetracker"
+
+platform :ios do
+  before_all do
+    ensure_git_status_clean unless ENV['CI']
+  end
+
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    api_key = app_store_connect_api_key(
+      key_id: "9NCJS9C879",
+      issuer_id: "8453d96e-8abe-4aa4-b7a7-56004bb85951",
+      key_filepath: "./fastlane/keys/AuthKey_9NCJS9C879.p8"
+    )
+
+    build_number = Time.now.strftime("%y%m%d%H%M")
+
+    increment_build_number_in_xcodeproj(
+      xcodeproj: "#{PROJECT_NAME}.xcodeproj",
+      build_number: build_number
+    )
+
+    build_app(
+      scheme: SCHEME_NAME,
+      export_method: "app-store",
+      output_directory: "./build",
+      clean: true,
+      include_bitcode: false,
+      include_symbols: true
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true,
+      changelog: generate_changelog
+    )
+
+    commit_version_bump(
+      xcodeproj: "#{PROJECT_NAME}.xcodeproj",
+      message: "Build #{build_number} [skip ci]",
+      force: true
+    )
+  end
+
+  desc "Register the bundle ID"
+  lane :register do
+    api_key = app_store_connect_api_key(
+      key_id: "9NCJS9C879",
+      issuer_id: "8453d96e-8abe-4aa4-b7a7-56004bb85951",
+      key_filepath: "./fastlane/keys/AuthKey_9NCJS9C879.p8"
+    )
+
+    produce(
+      api_key: api_key,
+      app_identifier: BUNDLE_ID,
+      app_name: "FlexTime Tracker",
+      language: "English",
+      app_version: "1.0.0",
+      sku: "flextimetracker2025",
+      skip_itc: false
+    )
+  end
+
+  private_lane :generate_changelog do
+    changelog = changelog_from_git_commits(
+      between: [last_git_tag, "HEAD"],
+      pretty: "- %s",
+      date_format: "short",
+      match_lightweight_tag: false,
+      merge_commit_filtering: "exclude_merges"
+    )
+    changelog.nil? || changelog.empty? ? "Bug fixes and improvements." : changelog
+  end
+
+  error do |lane, exception, options|
+    UI.error("#{lane} failed: #{exception.message}")
+  end
+
+  after_all do |lane, options|
+    clean_build_artifacts unless ENV['CI']
+  end
+end
+
+def last_git_tag
+  sh("git describe --tags --abbrev=0", log: false).strip
+rescue
+  "HEAD~10"
+end
