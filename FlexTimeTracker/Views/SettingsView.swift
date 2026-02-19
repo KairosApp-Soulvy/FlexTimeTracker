@@ -88,6 +88,16 @@ struct SettingsView: View {
                     Text("Notifications")
                 }
                 
+                Section {
+                    NavigationLink("Manage Projects") {
+                        ProjectsView()
+                    }
+                } header: {
+                    Text("Projects")
+                } footer: {
+                    Text("Group time entries by project, shoot, or client.")
+                }
+                
                 Section("About") {
                     HStack {
                         Text("Version")

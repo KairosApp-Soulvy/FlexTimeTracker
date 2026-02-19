@@ -7,6 +7,6 @@ struct FlexTimeTrackerApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [TimeEntry.self, FlexTimeUsage.self, FlexBank.self])
+        .modelContainer(for: [TimeEntry.self, FlexTimeUsage.self, FlexBank.self, Project.self])
     }
 }

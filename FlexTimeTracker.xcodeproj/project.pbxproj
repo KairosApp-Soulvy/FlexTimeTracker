@@ -22,6 +22,8 @@
 		FA000010 /* FlexBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000010 /* FlexBank.swift */; };
 		FA000011 /* ExpirationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000011 /* ExpirationPolicy.swift */; };
 		FA000012 /* ExpirationNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000012 /* ExpirationNotificationService.swift */; };
+		FA000020 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000020 /* Project.swift */; };
+		FA000021 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000021 /* ProjectsView.swift */; };
 		FA000002 /* FlexBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000002 /* FlexBalanceView.swift */; };
 		FA000003 /* AddFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000003 /* AddFlexUsageView.swift */; };
 		FA000004 /* EditFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000004 /* EditFlexUsageView.swift */; };
@@ -44,6 +46,8 @@
 		FB000010 /* FlexBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBank.swift; sourceTree = "<group>"; };
 		FB000011 /* ExpirationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationPolicy.swift; sourceTree = "<group>"; };
 		FB000012 /* ExpirationNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationNotificationService.swift; sourceTree = "<group>"; };
+		FB000020 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		FB000021 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		FB000002 /* FlexBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBalanceView.swift; sourceTree = "<group>"; };
 		FB000003 /* AddFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlexUsageView.swift; sourceTree = "<group>"; };
 		FB000004 /* EditFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlexUsageView.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 				FB000001 /* FlexTimeUsage.swift */,
 				FB000010 /* FlexBank.swift */,
 				FB000011 /* ExpirationPolicy.swift */,
+				FB000020 /* Project.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 				AB000008 /* SettingsView.swift */,
 				AB000009 /* AddEntryView.swift */,
 				AB00000A /* EditEntryView.swift */,
+				FB000021 /* ProjectsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +226,8 @@
 				AA000008 /* SettingsView.swift in Sources */,
 				AA000009 /* AddEntryView.swift in Sources */,
 				AA00000A /* EditEntryView.swift in Sources */,
+				FA000020 /* Project.swift in Sources */,
+				FA000021 /* ProjectsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

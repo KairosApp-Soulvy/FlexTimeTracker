@@ -6,6 +6,7 @@ struct FlexBalanceView: View {
     @Query(sort: \TimeEntry.clockIn) private var allEntries: [TimeEntry]
     @Query(sort: \FlexTimeUsage.date, order: .reverse) private var allUsages: [FlexTimeUsage]
     @Query(sort: \FlexBank.earnedDate) private var allBanks: [FlexBank]
+    @Query(sort: \Project.name) private var allProjects: [Project]
     @State private var showingAddUsage = false
     @State private var needsSync = false
     
@@ -38,6 +39,28 @@ struct FlexBalanceView: View {
         allBanks
             .filter { $0.isExpired(policy: policy) }
             .reduce(0) { $0 + ($1.remainingHours * 3600) }
+    }
+    
+    private var projectBreakdown: [(name: String, color: Color, seconds: TimeInterval)] {
+        let completed = allEntries.filter { $0.clockOut != nil }
+        var results: [(name: String, color: Color, seconds: TimeInterval)] = []
+        
+        let withProject = Dictionary(grouping: completed.filter { $0.project != nil }) { $0.project!.persistentModelID }
+        let withoutProject = completed.filter { $0.project == nil }
+        
+        if !withoutProject.isEmpty {
+            let total = withoutProject.reduce(0) { $0 + $1.duration }
+            results.append(("General", .gray, total))
+        }
+        
+        for project in allProjects {
+            if let entries = withProject[project.persistentModelID] {
+                let total = entries.reduce(0) { $0 + $1.duration }
+                results.append((project.name, project.color, total))
+            }
+        }
+        
+        return results.sorted { $0.seconds > $1.seconds }
     }
     
     /// Banks expiring within 14 days
@@ -121,6 +144,28 @@ struct FlexBalanceView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
+                }
+                
+                // Per-project breakdown
+                if !projectBreakdown.isEmpty {
+                    Section {
+                        ForEach(projectBreakdown, id: \.name) { item in
+                            HStack(spacing: 10) {
+                                Circle()
+                                    .fill(item.color)
+                                    .frame(width: 10, height: 10)
+                                Text(item.name)
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text(item.seconds.hoursMinutes)
+                                    .font(.subheadline)
+                                    .monospacedDigit()
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } header: {
+                        Text("By Project")
+                    }
                 }
                 
                 // Banked overtime breakdown

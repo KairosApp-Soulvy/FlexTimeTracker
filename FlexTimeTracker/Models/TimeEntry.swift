@@ -6,11 +6,13 @@ final class TimeEntry {
     var clockIn: Date
     var clockOut: Date?
     var note: String
+    var project: Project?
     
-    init(clockIn: Date = .now, clockOut: Date? = nil, note: String = "") {
+    init(clockIn: Date = .now, clockOut: Date? = nil, note: String = "", project: Project? = nil) {
         self.clockIn = clockIn
         self.clockOut = clockOut
         self.note = note
+        self.project = project
     }
     
     var duration: TimeInterval {
