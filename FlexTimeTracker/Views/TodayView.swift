@@ -56,7 +56,7 @@ struct TodayView: View {
                             }
                             
                             // Live timer
-                            let elapsed = now.timeIntervalSince(active.clockIn)
+                            let elapsed = max(0, now.timeIntervalSince(active.clockIn))
                             Text(elapsed.hoursMinutesSeconds)
                                 .font(.system(size: 48, weight: .bold, design: .rounded))
                                 .monospacedDigit()

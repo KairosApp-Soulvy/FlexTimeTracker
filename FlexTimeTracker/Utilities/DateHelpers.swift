@@ -40,7 +40,7 @@ extension Date {
 
 extension TimeInterval {
     var hoursMinutesSeconds: String {
-        let total = Int(abs(self))
+        let total = max(0, Int(self))
         let h = total / 3600
         let m = (total % 3600) / 60
         let s = total % 60
