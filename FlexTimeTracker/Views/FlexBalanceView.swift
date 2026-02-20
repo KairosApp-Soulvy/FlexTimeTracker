@@ -146,8 +146,8 @@ struct FlexBalanceView: View {
                     .padding(.vertical, 12)
                 }
                 
-                // Per-project breakdown
-                if !projectBreakdown.isEmpty {
+                // Per-project breakdown (only show when there's actual data with multiple sources)
+                if projectBreakdown.count > 1 || (projectBreakdown.count == 1 && projectBreakdown[0].name != "General") {
                     Section {
                         ForEach(projectBreakdown, id: \.name) { item in
                             HStack(spacing: 10) {
@@ -164,7 +164,16 @@ struct FlexBalanceView: View {
                             }
                         }
                     } header: {
-                        Text("By Project")
+                        HStack {
+                            Text("By Project")
+                            Spacer()
+                            NavigationLink {
+                                ProjectsView()
+                            } label: {
+                                Text("Manage")
+                                    .font(.caption)
+                            }
+                        }
                     }
                 }
                 
@@ -213,7 +222,7 @@ struct FlexBalanceView: View {
             }
             .onAppear {
                 syncBanksFromEntries()
-                ExpirationNotificationService.requestPermission()
+                // Only schedule if permission already granted — don't prompt here
                 ExpirationNotificationService.scheduleExpirationAlerts(banks: allBanks, policy: policy)
             }
         }

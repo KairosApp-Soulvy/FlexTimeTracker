@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct EditEntryView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Bindable var entry: TimeEntry
     @Query(filter: #Predicate<Project> { !$0.isArchived }, sort: \Project.name) private var activeProjects: [Project]
@@ -11,6 +12,7 @@ struct EditEntryView: View {
     @State private var hasClockOut: Bool
     @State private var note: String
     @State private var selectedProject: Project?
+    @State private var showingDeleteConfirm = false
     
     init(entry: TimeEntry) {
         self.entry = entry
@@ -55,6 +57,18 @@ struct EditEntryView: View {
                 Section("Note") {
                     TextField("e.g., Lunch break, WFH...", text: $note)
                 }
+                
+                Section {
+                    Button(role: .destructive) {
+                        showingDeleteConfirm = true
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Label("Delete Entry", systemImage: "trash")
+                            Spacer()
+                        }
+                    }
+                }
             }
             .navigationTitle("Edit Entry")
             .navigationBarTitleDisplayMode(.inline)
@@ -70,6 +84,12 @@ struct EditEntryView: View {
                         entry.project = selectedProject
                         dismiss()
                     }
+                }
+            }
+            .confirmationDialog("Delete this entry?", isPresented: $showingDeleteConfirm, titleVisibility: .visible) {
+                Button("Delete", role: .destructive) {
+                    modelContext.delete(entry)
+                    dismiss()
                 }
             }
         }

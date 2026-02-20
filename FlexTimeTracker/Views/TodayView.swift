@@ -8,7 +8,10 @@ struct TodayView: View {
     @State private var showingAddSheet = false
     @State private var selectedDate = Date()
     @State private var clockInProject: Project?
-    @State private var showingProjectPicker = false
+    @State private var now = Date()
+    
+    // Live timer - updates every second when clocked in
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     private var entriesForSelectedDate: [TimeEntry] {
         allEntries.filter { $0.clockIn.isSameDay(as: selectedDate) }
@@ -26,47 +29,63 @@ struct TodayView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Quick clock section
+                // Clock in/out card
                 Section {
                     if let active = activeEntry {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                HStack(spacing: 6) {
-                                    Text("Clocked in")
-                                        .font(.headline)
-                                    if let project = active.project {
-                                        ProjectBadge(project: project)
+                        // CLOCKED IN STATE
+                        VStack(spacing: 16) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack(spacing: 6) {
+                                        Circle()
+                                            .fill(.green)
+                                            .frame(width: 10, height: 10)
+                                            .pulse()
+                                        Text("Clocked In")
+                                            .font(.headline)
+                                            .foregroundStyle(.green)
+                                        if let project = active.project {
+                                            ProjectBadge(project: project)
+                                        }
                                     }
+                                    Text("since \(active.clockIn.shortTime)")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
                                 }
-                                Text("since \(active.clockIn.shortTime)")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                                Spacer()
                             }
-                            Spacer()
-                            Button("Clock Out") {
-                                active.clockOut = .now
+                            
+                            // Live timer
+                            let elapsed = now.timeIntervalSince(active.clockIn)
+                            Text(elapsed.hoursMinutesSeconds)
+                                .font(.system(size: 48, weight: .bold, design: .rounded))
+                                .monospacedDigit()
+                                .foregroundStyle(.primary)
+                            
+                            Button {
+                                withAnimation {
+                                    active.clockOut = .now
+                                    try? modelContext.save()
+                                }
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            } label: {
+                                Text("Clock Out")
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 4)
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.red)
                         }
+                        .padding(.vertical, 8)
                     } else {
-                        VStack(spacing: 12) {
-                            HStack {
-                                Text("Not clocked in")
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                                Button("Clock In") {
-                                    let entry = TimeEntry(project: clockInProject)
-                                    modelContext.insert(entry)
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.green)
-                            }
-                            
+                        // NOT CLOCKED IN STATE
+                        VStack(spacing: 16) {
+                            // Project picker (always visible when projects exist)
                             if !activeProjects.isEmpty {
-                                HStack {
-                                    Text("Project:")
-                                        .font(.caption)
+                                HStack(spacing: 8) {
+                                    Text("Project")
+                                        .font(.subheadline)
                                         .foregroundStyle(.secondary)
                                     
                                     ScrollView(.horizontal, showsIndicators: false) {
@@ -83,7 +102,24 @@ struct TodayView: View {
                                     }
                                 }
                             }
+                            
+                            Button {
+                                withAnimation {
+                                    let entry = TimeEntry(project: clockInProject)
+                                    modelContext.insert(entry)
+                                    try? modelContext.save()
+                                }
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            } label: {
+                                Label("Clock In", systemImage: "play.fill")
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 4)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.green)
                         }
+                        .padding(.vertical, 8)
                     }
                 }
                 
@@ -103,20 +139,35 @@ struct TodayView: View {
                             .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundStyle(.blue)
+                            .monospacedDigit()
                             .contentTransition(.numericText())
                     }
                 }
                 
                 // Entries
-                Section("Entries") {
+                Section {
                     if entriesForSelectedDate.isEmpty {
-                        Text("No entries for this day")
-                            .foregroundStyle(.secondary)
+                        VStack(spacing: 6) {
+                            Text("No time tracked")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            Text("Tap Clock In to start tracking!")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
                     } else {
                         ForEach(entriesForSelectedDate) { entry in
-                            EntryRow(entry: entry)
+                            EntryRow(entry: entry, now: now)
                         }
                         .onDelete(perform: deleteEntries)
+                    }
+                } header: {
+                    Text("Entries")
+                } footer: {
+                    if !entriesForSelectedDate.isEmpty {
+                        Text("Swipe left to delete an entry")
                     }
                 }
             }
@@ -133,6 +184,11 @@ struct TodayView: View {
             .sheet(isPresented: $showingAddSheet) {
                 AddEntryView(initialDate: selectedDate)
             }
+            .onReceive(timer) { _ in
+                if activeEntry != nil {
+                    now = Date()
+                }
+            }
         }
     }
     
@@ -141,6 +197,25 @@ struct TodayView: View {
         for index in offsets {
             modelContext.delete(entries[index])
         }
+    }
+}
+
+// MARK: - Pulse Animation
+
+struct PulseModifier: ViewModifier {
+    @State private var isPulsing = false
+    
+    func body(content: Content) -> some View {
+        content
+            .opacity(isPulsing ? 0.4 : 1.0)
+            .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true), value: isPulsing)
+            .onAppear { isPulsing = true }
+    }
+}
+
+extension View {
+    func pulse() -> some View {
+        modifier(PulseModifier())
     }
 }
 
@@ -199,6 +274,7 @@ struct ProjectChip: View {
 struct EntryRow: View {
     @Bindable var entry: TimeEntry
     @State private var showingEdit = false
+    let now: Date
     
     var body: some View {
         Button {
@@ -218,6 +294,7 @@ struct EntryRow: View {
                             } else {
                                 Text("→ now")
                                     .foregroundStyle(.green)
+                                    .fontWeight(.medium)
                             }
                         }
                         if let project = entry.project {
@@ -233,7 +310,7 @@ struct EntryRow: View {
                 Spacer()
                 Text(entry.durationFormatted)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(entry.isActive ? .green : .secondary)
                     .monospacedDigit()
             }
         }

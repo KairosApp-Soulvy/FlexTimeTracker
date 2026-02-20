@@ -15,6 +15,10 @@ struct WeekView: View {
         Calendar.current.date(byAdding: .day, value: 6, to: weekStart) ?? weekStart
     }
     
+    private var weekLabel: String {
+        "\(weekStart.compactDate) – \(weekEnd.compactDate)"
+    }
+    
     private var weekEntries: [TimeEntry] {
         let end = Calendar.current.date(byAdding: .day, value: 7, to: weekStart) ?? weekStart
         return allEntries.filter { $0.clockIn >= weekStart && $0.clockIn < end }
@@ -36,12 +40,8 @@ struct WeekView: View {
         (0..<7).compactMap { Calendar.current.date(byAdding: .day, value: $0, to: weekStart) }
     }
     
-    private func entriesFor(day: Date) -> [TimeEntry] {
-        weekEntries.filter { $0.clockIn.isSameDay(as: day) }
-    }
-    
     private func totalFor(day: Date) -> TimeInterval {
-        entriesFor(day: day).reduce(0) { $0 + $1.duration }
+        weekEntries.filter { $0.clockIn.isSameDay(as: day) }.reduce(0) { $0 + $1.duration }
     }
     
     var body: some View {
@@ -88,7 +88,7 @@ struct WeekView: View {
                             StatBox(
                                 title: remainingSeconds > 0 ? "Remaining" : "Overtime",
                                 value: abs(remainingSeconds).hoursMinutes,
-                                color: remainingSeconds > 0 ? .orange : .green
+                                color: remainingSeconds > 0 ? .secondary : .green
                             )
                         }
                     }
@@ -134,8 +134,13 @@ struct WeekView: View {
                     }
                 }
             }
-            .navigationTitle("Week Summary")
+            .navigationTitle("Week")
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(weekLabel)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         weekOffset -= 1

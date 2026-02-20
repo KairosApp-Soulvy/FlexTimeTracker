@@ -25,8 +25,9 @@ final class TimeEntry {
     }
     
     var durationFormatted: String {
-        let hours = Int(duration) / 3600
-        let minutes = (Int(duration) % 3600) / 60
+        let total = Int(duration)
+        let hours = total / 3600
+        let minutes = (total % 3600) / 60
         return String(format: "%dh %02dm", hours, minutes)
     }
 }

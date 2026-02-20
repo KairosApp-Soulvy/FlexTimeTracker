@@ -16,7 +16,7 @@ struct ContentView: View {
             
             FlexBalanceView()
                 .tabItem {
-                    Label("Balance", systemImage: "scale.3d")
+                    Label("Balance", systemImage: "banknote")
                 }
             
             SettingsView()

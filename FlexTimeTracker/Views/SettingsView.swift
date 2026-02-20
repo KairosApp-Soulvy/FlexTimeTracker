@@ -2,8 +2,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var weeklyTarget: Double = AppSettings.weeklyTargetHours
+    @State private var weekStartDay: Int = AppSettings.weekStartDay
     @State private var policyType: PolicyType = SettingsView.currentPolicyType()
     @State private var rollingDays: Int = SettingsView.currentRollingDays()
+    @State private var notificationsEnabled: Bool = UserDefaults.standard.object(forKey: "flexExpirationReminders") == nil ? true : UserDefaults.standard.bool(forKey: "flexExpirationReminders")
     
     enum PolicyType: String, CaseIterable {
         case rolling = "Rolling Window"
@@ -12,10 +14,17 @@ struct SettingsView: View {
         case never = "Never Expires"
     }
     
+    private let weekDays = [
+        (2, "Monday"),
+        (1, "Sunday"),
+        (7, "Saturday"),
+    ]
+    
     var body: some View {
         NavigationStack {
             Form {
-                Section("Weekly Target") {
+                Section {
+                    // Hours with stepper for precision
                     HStack {
                         Text("Hours per week")
                         Spacer()
@@ -23,10 +32,36 @@ struct SettingsView: View {
                             .foregroundStyle(.blue)
                             .monospacedDigit()
                     }
-                    Slider(value: $weeklyTarget, in: 10...60, step: 0.5)
+                    Stepper("", value: $weeklyTarget, in: 10...80, step: 0.5)
+                        .labelsHidden()
                         .onChange(of: weeklyTarget) { _, newValue in
                             AppSettings.weeklyTargetHours = newValue
                         }
+                    
+                    // Common presets
+                    HStack(spacing: 8) {
+                        ForEach([35.0, 37.5, 40.0, 45.0], id: \.self) { hours in
+                            Button(hours == 37.5 ? "37.5h" : "\(Int(hours))h") {
+                                weeklyTarget = hours
+                                AppSettings.weeklyTargetHours = hours
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(weeklyTarget == hours ? .blue : .secondary)
+                            .controlSize(.small)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    
+                    Picker("Week starts on", selection: $weekStartDay) {
+                        ForEach(weekDays, id: \.0) { day in
+                            Text(day.1).tag(day.0)
+                        }
+                    }
+                    .onChange(of: weekStartDay) { _, newValue in
+                        AppSettings.weekStartDay = newValue
+                    }
+                } header: {
+                    Text("Work Schedule")
                 }
                 
                 Section {
@@ -54,6 +89,7 @@ struct SettingsView: View {
                             ForEach([30, 60, 90, 120], id: \.self) { days in
                                 Button("\(days)d") {
                                     rollingDays = days
+                                    savePolicy()
                                 }
                                 .buttonStyle(.bordered)
                                 .tint(rollingDays == days ? .blue : .secondary)
@@ -69,17 +105,15 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Toggle("Expiration Reminders", isOn: .init(
-                        get: { UserDefaults.standard.bool(forKey: "flexExpirationReminders") != false },
-                        set: {
-                            UserDefaults.standard.set($0, forKey: "flexExpirationReminders")
-                            if $0 {
+                    Toggle("Expiration Reminders", isOn: $notificationsEnabled)
+                        .onChange(of: notificationsEnabled) { _, newValue in
+                            UserDefaults.standard.set(newValue, forKey: "flexExpirationReminders")
+                            if newValue {
                                 ExpirationNotificationService.requestPermission()
                             }
                         }
-                    ))
                     
-                    if UserDefaults.standard.bool(forKey: "flexExpirationReminders") != false {
+                    if notificationsEnabled {
                         Text("You'll get alerts 7 days and 1 day before flex time expires")
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -102,7 +136,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("1.1.0")
+                        Text("1.2.0")
                             .foregroundStyle(.secondary)
                     }
                     HStack {
