@@ -7,12 +7,14 @@ final class TimeEntry {
     var clockOut: Date?
     var note: String
     var project: Project?
+    var isManualEntry: Bool
     
-    init(clockIn: Date = .now, clockOut: Date? = nil, note: String = "", project: Project? = nil) {
+    init(clockIn: Date = .now, clockOut: Date? = nil, note: String = "", project: Project? = nil, isManualEntry: Bool = false) {
         self.clockIn = clockIn
         self.clockOut = clockOut
         self.note = note
         self.project = project
+        self.isManualEntry = isManualEntry
     }
     
     var duration: TimeInterval {

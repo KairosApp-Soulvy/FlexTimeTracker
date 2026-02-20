@@ -26,6 +26,7 @@
 		FA000020 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000020 /* Project.swift */; };
 		FA000021 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000021 /* ProjectsView.swift */; };
 		FA000022 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000022 /* OnboardingView.swift */; };
+		FA000040 /* QuickAddFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000040 /* QuickAddFlexView.swift */; };
 		FA000002 /* FlexBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000002 /* FlexBalanceView.swift */; };
 		FA000003 /* AddFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000003 /* AddFlexUsageView.swift */; };
 		FA000004 /* EditFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000004 /* EditFlexUsageView.swift */; };
@@ -52,6 +53,7 @@
 		FB000020 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		FB000021 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		FB000022 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		FB000040 /* QuickAddFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAddFlexView.swift; sourceTree = "<group>"; };
 		FB000002 /* FlexBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBalanceView.swift; sourceTree = "<group>"; };
 		FB000003 /* AddFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlexUsageView.swift; sourceTree = "<group>"; };
 		FB000004 /* EditFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlexUsageView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				AB00000A /* EditEntryView.swift */,
 				FB000021 /* ProjectsView.swift */,
 				FB000022 /* OnboardingView.swift */,
+				FB000040 /* QuickAddFlexView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				FA000020 /* Project.swift in Sources */,
 				FA000021 /* ProjectsView.swift in Sources */,
 				FA000022 /* OnboardingView.swift in Sources */,
+				FA000040 /* QuickAddFlexView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@ struct TodayView: View {
     @Query(sort: \TimeEntry.clockIn, order: .reverse) private var allEntries: [TimeEntry]
     @Query(filter: #Predicate<Project> { !$0.isArchived }, sort: \Project.name) private var activeProjects: [Project]
     @State private var showingAddSheet = false
+    @State private var showingQuickAdd = false
     @State private var selectedDate = Date()
     @State private var clockInProject: Project?
     @State private var now = Date()
@@ -118,6 +119,17 @@ struct TodayView: View {
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.green)
+                            
+                            Button {
+                                showingQuickAdd = true
+                            } label: {
+                                Label("Quick Add Flex Time", systemImage: "bolt.fill")
+                                    .font(.subheadline.weight(.medium))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 4)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.orange)
                         }
                         .padding(.vertical, 8)
                     }
@@ -183,6 +195,9 @@ struct TodayView: View {
             }
             .sheet(isPresented: $showingAddSheet) {
                 AddEntryView(initialDate: selectedDate)
+            }
+            .sheet(isPresented: $showingQuickAdd) {
+                QuickAddFlexView()
             }
             .onReceive(timer) { _ in
                 if activeEntry != nil {
@@ -283,6 +298,11 @@ struct EntryRow: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
+                        if entry.isManualEntry {
+                            Image(systemName: "bolt.fill")
+                                .font(.caption)
+                                .foregroundStyle(.orange)
+                        }
                         HStack(spacing: 4) {
                             Text(entry.clockIn.shortTime)
                                 .fontWeight(.medium)
