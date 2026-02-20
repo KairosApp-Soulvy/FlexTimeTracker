@@ -5,6 +5,10 @@ import SwiftData
 struct FlexTimeTrackerApp: App {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     
+    init() {
+        CrashReporter.shared.install()
+    }
+    
     var body: some Scene {
         WindowGroup {
             if hasCompletedOnboarding {

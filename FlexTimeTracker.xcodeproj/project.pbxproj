@@ -22,6 +22,7 @@
 		FA000010 /* FlexBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000010 /* FlexBank.swift */; };
 		FA000011 /* ExpirationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000011 /* ExpirationPolicy.swift */; };
 		FA000012 /* ExpirationNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000012 /* ExpirationNotificationService.swift */; };
+		FA000030 /* CrashReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000030 /* CrashReporter.swift */; };
 		FA000020 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000020 /* Project.swift */; };
 		FA000021 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000021 /* ProjectsView.swift */; };
 		FA000022 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000022 /* OnboardingView.swift */; };
@@ -47,6 +48,7 @@
 		FB000010 /* FlexBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBank.swift; sourceTree = "<group>"; };
 		FB000011 /* ExpirationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationPolicy.swift; sourceTree = "<group>"; };
 		FB000012 /* ExpirationNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationNotificationService.swift; sourceTree = "<group>"; };
+		FB000030 /* CrashReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReporter.swift; sourceTree = "<group>"; };
 		FB000020 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		FB000021 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		FB000022 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				FB000012 /* ExpirationNotificationService.swift */,
+				FB000030 /* CrashReporter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				FA000010 /* FlexBank.swift in Sources */,
 				FA000011 /* ExpirationPolicy.swift in Sources */,
 				FA000012 /* ExpirationNotificationService.swift in Sources */,
+				FA000030 /* CrashReporter.swift in Sources */,
 				FA000002 /* FlexBalanceView.swift in Sources */,
 				FA000003 /* AddFlexUsageView.swift in Sources */,
 				FA000004 /* EditFlexUsageView.swift in Sources */,
