@@ -6,6 +6,7 @@ struct SettingsView: View {
     @State private var policyType: PolicyType = SettingsView.currentPolicyType()
     @State private var rollingDays: Int = SettingsView.currentRollingDays()
     @State private var notificationsEnabled: Bool = UserDefaults.standard.object(forKey: "flexExpirationReminders") == nil ? true : UserDefaults.standard.bool(forKey: "flexExpirationReminders")
+    @State private var showFeedback = false
     
     enum PolicyType: String, CaseIterable {
         case rolling = "Rolling Window"
@@ -132,6 +133,14 @@ struct SettingsView: View {
                     Text("Group time entries by project, shoot, or client.")
                 }
                 
+                Section {
+                    Button {
+                        showFeedback = true
+                    } label: {
+                        Label("Send Feedback", systemImage: "envelope.fill")
+                    }
+                }
+                
                 Section("About") {
                     HStack {
                         Text("Version")
@@ -148,6 +157,9 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .sheet(isPresented: $showFeedback) {
+                FeedbackView(repository: "KairosApp-Soulvy/FlexTimeTracker")
+            }
         }
     }
     
