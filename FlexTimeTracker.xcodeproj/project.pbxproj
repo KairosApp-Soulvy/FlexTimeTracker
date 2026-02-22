@@ -30,6 +30,8 @@
 		FA000002 /* FlexBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000002 /* FlexBalanceView.swift */; };
 		FA000003 /* AddFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000003 /* AddFlexUsageView.swift */; };
 		FA000004 /* EditFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000004 /* EditFlexUsageView.swift */; };
+		FA000050 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000050 /* FeedbackView.swift */; };
+		FA000051 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000051 /* FeedbackService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		FB000002 /* FlexBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBalanceView.swift; sourceTree = "<group>"; };
 		FB000003 /* AddFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlexUsageView.swift; sourceTree = "<group>"; };
 		FB000004 /* EditFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlexUsageView.swift; sourceTree = "<group>"; };
+		FB000050 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
+		FB000051 /* FeedbackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 			children = (
 				FB000012 /* ExpirationNotificationService.swift */,
 				FB000030 /* CrashReporter.swift */,
+				FB000051 /* FeedbackService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 				FB000021 /* ProjectsView.swift */,
 				FB000022 /* OnboardingView.swift */,
 				FB000040 /* QuickAddFlexView.swift */,
+				FB000050 /* FeedbackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +246,8 @@
 				FA000021 /* ProjectsView.swift in Sources */,
 				FA000022 /* OnboardingView.swift in Sources */,
 				FA000040 /* QuickAddFlexView.swift in Sources */,
+				FA000050 /* FeedbackView.swift in Sources */,
+				FA000051 /* FeedbackService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +380,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2602192152;
+				CURRENT_PROJECT_VERSION = 2602211706;
 				DEVELOPMENT_TEAM = 3AZDK92P74;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -403,7 +411,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2602192152;
+				CURRENT_PROJECT_VERSION = 2602211706;
 				DEVELOPMENT_TEAM = 3AZDK92P74;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
