@@ -54,7 +54,7 @@ final class CrashReporter: @unchecked Sendable {
             name: name,
             reason: reason,
             stackTrace: stackTrace,
-            freeMemoryMB: freeMemoryMB(),
+            freeMemoryMB: usedMemoryMB(),
             freeDiskGB: freeDiskGB()
         )
         
@@ -140,7 +140,8 @@ final class CrashReporter: @unchecked Sendable {
         }
     }
     
-    private func freeMemoryMB() -> Int {
+    /// Returns the app's resident memory usage in MB (not free memory)
+    private func usedMemoryMB() -> Int {
         var info = mach_task_basic_info()
         var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
         let result = withUnsafeMutablePointer(to: &info) {
