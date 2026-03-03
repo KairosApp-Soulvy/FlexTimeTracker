@@ -45,7 +45,7 @@ struct FlexBalanceView: View {
         let completed = allEntries.filter { $0.clockOut != nil }
         var results: [(name: String, color: Color, seconds: TimeInterval)] = []
         
-        let withProject = Dictionary(grouping: completed.filter { $0.project != nil }) { $0.project!.persistentModelID }
+        let withProject = Dictionary(grouping: completed.compactMap { $0.project }) { $0.persistentModelID }
         let withoutProject = completed.filter { $0.project == nil }
         
         if !withoutProject.isEmpty {
