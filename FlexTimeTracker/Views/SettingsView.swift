@@ -18,7 +18,7 @@ struct SettingsView: View {
     private let weekDays = [
         (2, "Monday"),
         (1, "Sunday"),
-        (7, "Saturday"),
+        (7, "Saturday")
     ]
     
     private var appVersion: String {

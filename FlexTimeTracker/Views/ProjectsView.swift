@@ -97,6 +97,7 @@ struct ProjectRow: View {
                 Circle()
                     .fill(project.color)
                     .frame(width: 12, height: 12)
+                    .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(project.name)
@@ -111,7 +112,10 @@ struct ProjectRow: View {
                 Image(systemName: "chevron.right")
                     .font(.caption)
                     .foregroundStyle(.quaternary)
+                    .accessibilityHidden(true)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityHint("Double tap to edit project")
         }
         .foregroundStyle(.primary)
         .sheet(isPresented: $showingEdit) {
