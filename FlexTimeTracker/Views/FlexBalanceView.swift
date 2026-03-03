@@ -126,6 +126,7 @@ struct FlexBalanceView: View {
                             .font(.system(size: 44, weight: .bold, design: .rounded))
                             .foregroundStyle(availableSeconds > 0 ? .green : (availableSeconds < 0 ? .red : .secondary))
                             .monospacedDigit()
+                            .accessibilityLabel("Available flex time: \(availableSeconds.hoursMinutes)")
                         
                         HStack(spacing: 20) {
                             StatColumn(value: totalEarnedSeconds.hoursMinutes, label: "Earned", color: .blue)
