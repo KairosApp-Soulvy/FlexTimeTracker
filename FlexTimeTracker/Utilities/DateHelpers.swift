@@ -8,7 +8,9 @@ extension Date {
     /// Start of week respecting user's preferred start day
     var startOfWeek: Date {
         var cal = Calendar.current
-        cal.firstWeekday = AppSettings.weekStartDay // 1=Sun, 2=Mon
+        // Validate weekStartDay is in valid range (1-7), default to Monday if invalid
+        let weekDay = AppSettings.weekStartDay
+        cal.firstWeekday = (1...7).contains(weekDay) ? weekDay : 2 // 1=Sun, 2=Mon
         let components = cal.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         return cal.date(from: components) ?? self
     }
