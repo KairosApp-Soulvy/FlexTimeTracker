@@ -84,6 +84,7 @@ struct EditEntryView: View {
                         entry.project = selectedProject
                         dismiss()
                     }
+                    .disabled(hasClockOut && clockOut <= clockIn)
                 }
             }
             .confirmationDialog("Delete this entry?", isPresented: $showingDeleteConfirm, titleVisibility: .visible) {
