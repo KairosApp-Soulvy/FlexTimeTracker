@@ -280,9 +280,10 @@ struct FlexBalanceView: View {
     }
     
     private func deleteUsages(at offsets: IndexSet) {
-        for index in offsets {
+        for index in offsets where index < allUsages.count {
             modelContext.delete(allUsages[index])
         }
+        try? modelContext.save()
         // Re-sync after deleting usage (to restore bank balances)
         // This is simplified — in production you'd track which bank each usage drew from
     }
