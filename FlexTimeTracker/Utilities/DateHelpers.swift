@@ -48,13 +48,11 @@ extension TimeInterval {
     }
     
     var hoursMinutes: String {
-        let totalMinutes = Int(self) / 60
+        let totalMinutes = abs(Int(self)) / 60
         let h = totalMinutes / 60
-        let m = abs(totalMinutes % 60)
-        if self < 0 {
-            return String(format: "-%dh %02dm", abs(h), m)
-        }
-        return String(format: "%dh %02dm", h, m)
+        let m = totalMinutes % 60
+        let prefix = self < 0 ? "-" : ""
+        return String(format: "%s%dh %02dm", prefix, h, m)
     }
     
     var hours: Double {
