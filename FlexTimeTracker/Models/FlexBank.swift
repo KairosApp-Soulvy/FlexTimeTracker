@@ -44,15 +44,27 @@ final class FlexBank {
             var comps = cal.dateComponents([.year], from: earnedDate)
             comps.month = quarterEnd + 1
             comps.day = 1
-            return cal.date(from: comps)
+            // Fallback: if date construction fails, return end of current quarter
+            guard let date = cal.date(from: comps) else {
+                return cal.date(byAdding: .month, value: 3, to: earnedDate) ?? earnedDate
+            }
+            return date
         case .annualCap:
             // End of calendar year
             let cal = Calendar.current
             var comps = cal.dateComponents([.year], from: earnedDate)
-            comps.year = (comps.year ?? 2026) + 1
+            guard let year = comps.year else {
+                // Fallback: if year is nil, add 1 year directly
+                return cal.date(byAdding: .year, value: 1, to: earnedDate)
+            }
+            comps.year = year + 1
             comps.month = 1
             comps.day = 1
-            return cal.date(from: comps)
+            guard let date = cal.date(from: comps) else {
+                // Fallback: if date construction fails, add 1 year directly
+                return cal.date(byAdding: .year, value: 1, to: earnedDate)
+            }
+            return date
         case .never:
             return nil
         }
