@@ -62,6 +62,7 @@ struct TodayView: View {
                                 .font(.system(size: 48, weight: .bold, design: .rounded))
                                 .monospacedDigit()
                                 .foregroundStyle(.primary)
+                                .accessibilityLabel("Elapsed time: \(elapsed.hoursMinutes)")
                             
                             Button {
                                 withAnimation {
@@ -77,6 +78,7 @@ struct TodayView: View {
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.red)
+                            .accessibilityHint("Stops the current time tracking session")
                         }
                         .padding(.vertical, 8)
                     } else {
@@ -119,6 +121,7 @@ struct TodayView: View {
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.green)
+                            .accessibilityHint("Starts tracking your work time")
                             
                             Button {
                                 showingQuickAdd = true
@@ -267,6 +270,7 @@ struct ProjectChip: View {
                 Circle()
                     .fill(color)
                     .frame(width: 8, height: 8)
+                    .accessibilityHidden(true)
                 Text(name)
                     .font(.caption)
                     .fontWeight(.medium)
@@ -283,6 +287,8 @@ struct ProjectChip: View {
             }
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("\(name) project")
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
 }
 
