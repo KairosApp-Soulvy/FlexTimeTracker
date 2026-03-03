@@ -45,17 +45,18 @@ struct FlexBalanceView: View {
         let completed = allEntries.filter { $0.clockOut != nil }
         var results: [(name: String, color: Color, seconds: TimeInterval)] = []
         
-        let withProject = Dictionary(grouping: completed.compactMap { $0.project }) { $0.persistentModelID }
+        // Entries without project
         let withoutProject = completed.filter { $0.project == nil }
-        
         if !withoutProject.isEmpty {
             let total = withoutProject.reduce(0) { $0 + $1.duration }
             results.append(("General", .gray, total))
         }
         
+        // Entries grouped by project
         for project in allProjects {
-            if let entries = withProject[project.persistentModelID] {
-                let total = entries.reduce(0) { $0 + $1.duration }
+            let projectEntries = completed.filter { $0.project?.persistentModelID == project.persistentModelID }
+            if !projectEntries.isEmpty {
+                let total = projectEntries.reduce(0) { $0 + $1.duration }
                 results.append((project.name, project.color, total))
             }
         }
