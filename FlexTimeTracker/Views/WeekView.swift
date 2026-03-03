@@ -55,6 +55,7 @@ struct WeekView: View {
                         ZStack {
                             Circle()
                                 .stroke(Color.gray.opacity(0.2), lineWidth: 12)
+                                .accessibilityHidden(true)
                             Circle()
                                 .trim(from: 0, to: progress)
                                 .stroke(
@@ -63,15 +64,18 @@ struct WeekView: View {
                                 )
                                 .rotationEffect(.degrees(-90))
                                 .animation(.easeInOut, value: progress)
+                                .accessibilityHidden(true)
                             
                             VStack(spacing: 2) {
                                 Text(totalWeekSeconds.hoursMinutes)
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .monospacedDigit()
+                                    .accessibilityLabel("Worked \(totalWeekSeconds.hoursMinutes)")
                                 Text("of \(String(format: "%.0f", AppSettings.weeklyTargetHours))h")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
+                                    .accessibilityLabel("of \(String(format: "%.0f", AppSettings.weeklyTargetHours)) hours target")
                             }
                         }
                         .frame(height: 140)
