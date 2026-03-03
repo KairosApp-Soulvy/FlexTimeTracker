@@ -70,7 +70,8 @@ struct AddEntryView: View {
                             clockIn: clockIn,
                             clockOut: hasClockOut ? clockOut : nil,
                             note: note,
-                            project: selectedProject
+                            project: selectedProject,
+                            isManualEntry: true
                         )
                         modelContext.insert(entry)
                         dismiss()
