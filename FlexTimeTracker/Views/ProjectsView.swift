@@ -37,11 +37,7 @@ struct ProjectsView: View {
                     ForEach(activeProjects) { project in
                         ProjectRow(project: project)
                     }
-                    .onDelete { offsets in
-                        for i in offsets {
-                            activeProjects[i].isArchived = true
-                        }
-                    }
+                    .onDelete(perform: archiveProjects)
                 }
             } header: {
                 Text("Active Projects")
@@ -81,6 +77,13 @@ struct ProjectsView: View {
         }
         .sheet(isPresented: $showingAdd) {
             AddProjectView()
+        }
+    }
+    
+    private func archiveProjects(at offsets: IndexSet) {
+        let projectsToArchive = offsets.map { activeProjects[$0] }
+        for project in projectsToArchive {
+            project.isArchived = true
         }
     }
 }
