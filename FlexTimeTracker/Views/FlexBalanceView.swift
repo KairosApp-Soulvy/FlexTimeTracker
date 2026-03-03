@@ -87,6 +87,7 @@ struct FlexBalanceView: View {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .font(.title2)
                                 .foregroundStyle(.orange)
+                                .accessibilityHidden(true)
                             
                             VStack(alignment: .leading, spacing: 2) {
                                 let hours = String(format: "%.1f", expiringSoonHours)
@@ -107,8 +108,10 @@ struct FlexBalanceView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.orange)
                             .controlSize(.small)
+                            .accessibilityHint("Opens form to use your flex time before it expires")
                         }
                         .padding(.vertical, 4)
+                        .accessibilityElement(children: .contain)
                     }
                 }
                 
@@ -154,6 +157,7 @@ struct FlexBalanceView: View {
                                 Circle()
                                     .fill(item.color)
                                     .frame(width: 10, height: 10)
+                                    .accessibilityHidden(true)
                                 Text(item.name)
                                     .fontWeight(.medium)
                                 Spacer()
@@ -162,6 +166,7 @@ struct FlexBalanceView: View {
                                     .monospacedDigit()
                                     .foregroundStyle(.secondary)
                             }
+                            .accessibilityElement(children: .combine)
                         }
                     } header: {
                         HStack {
