@@ -62,6 +62,7 @@ struct TodayView: View {
                                 .font(.system(size: 48, weight: .bold, design: .rounded))
                                 .monospacedDigit()
                                 .foregroundStyle(.primary)
+                                .accessibilityLabel("Elapsed time: \(elapsed.hoursMinutesSeconds)")
                             
                             Button {
                                 withAnimation {
@@ -77,6 +78,8 @@ struct TodayView: View {
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.red)
+                            .accessibilityLabel("Clock out")
+                            .accessibilityHint("Stops the current time entry")
                         }
                         .padding(.vertical, 8)
                     } else {
@@ -119,6 +122,8 @@ struct TodayView: View {
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.green)
+                            .accessibilityLabel("Clock in")
+                            .accessibilityHint("Starts tracking a new time entry")
                             
                             Button {
                                 showingQuickAdd = true
@@ -130,6 +135,8 @@ struct TodayView: View {
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.orange)
+                            .accessibilityLabel("Quick add flex time")
+                            .accessibilityHint("Manually add overtime hours")
                         }
                         .padding(.vertical, 8)
                     }
@@ -153,6 +160,7 @@ struct TodayView: View {
                             .foregroundStyle(.blue)
                             .monospacedDigit()
                             .contentTransition(.numericText())
+                            .accessibilityLabel("Day total: \(totalForDay.hoursMinutes)")
                     }
                 }
                 
