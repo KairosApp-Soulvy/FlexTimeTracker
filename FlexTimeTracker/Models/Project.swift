@@ -26,12 +26,6 @@ final class Project {
         (entries ?? []).filter { $0.clockOut != nil }.reduce(0) { $0 + $1.duration }
     }
     
-    var overtimeSeconds: TimeInterval {
-        // Sum of overtime from weeks where this project had entries
-        // Simplified: just show total hours for the project
-        totalSeconds
-    }
-    
     static let availableColors: [(name: String, hex: String)] = [
         ("Blue", "007AFF"),
         ("Green", "34C759"),
