@@ -9,7 +9,10 @@ final class FeedbackService {
     
     // MARK: - Configuration
     
-    /// Replace with a fine-grained PAT that has Issues write access
+    /// GitHub Personal Access Token (fine-grained) with `issues:write` scope.
+    /// Generate at: https://github.com/settings/tokens?type=beta
+    /// This should be replaced with a secure token or fetched from a secure store in production.
+    /// Currently a placeholder — feedback submission will fail until configured.
     private static let token = "GITHUB_FEEDBACK_TOKEN"
     
     /// The GitHub repo (owner/name) to file issues against.
