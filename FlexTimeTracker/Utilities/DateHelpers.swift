@@ -52,7 +52,7 @@ extension TimeInterval {
         let h = totalMinutes / 60
         let m = totalMinutes % 60
         let prefix = self < 0 ? "-" : ""
-        return String(format: "%s%dh %02dm", prefix, h, m)
+        return String(format: "\(prefix)%dh %02dm", h, m)
     }
     
     var hours: Double {
