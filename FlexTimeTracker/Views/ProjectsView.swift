@@ -168,7 +168,9 @@ struct AddProjectView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
-                        let project = Project(name: name, colorHex: selectedColorHex)
+                        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+                        guard !trimmedName.isEmpty else { return }
+                        let project = Project(name: trimmedName, colorHex: selectedColorHex)
                         modelContext.insert(project)
                         dismiss()
                     }
@@ -245,7 +247,9 @@ struct EditProjectView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        project.name = name
+                        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+                        guard !trimmedName.isEmpty else { return }
+                        project.name = trimmedName
                         project.colorHex = selectedColorHex
                         dismiss()
                     }

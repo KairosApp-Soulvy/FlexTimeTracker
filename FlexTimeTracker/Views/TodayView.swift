@@ -79,7 +79,7 @@ struct TodayView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.red)
                             .accessibilityLabel("Clock out")
-                            .accessibilityHint("Stops the current time entry")
+                            .accessibilityHint("Stop tracking time for current session")
                         }
                         .padding(.vertical, 8)
                     } else {
@@ -123,7 +123,7 @@ struct TodayView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.green)
                             .accessibilityLabel("Clock in")
-                            .accessibilityHint("Starts tracking a new time entry")
+                            .accessibilityHint("Start tracking time")
                             
                             Button {
                                 showingQuickAdd = true

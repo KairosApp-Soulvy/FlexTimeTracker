@@ -76,7 +76,7 @@ struct WeekView: View {
                         }
                         .frame(height: 140)
                         .padding(.top, 8)
-                        .accessibilityElement(children: .combine)
+                        .accessibilityElement(children: .ignore)
                         .accessibilityLabel("Weekly progress: \(totalWeekSeconds.hoursMinutes) of \(String(format: "%.0f", AppSettings.weeklyTargetHours)) hours")
                         
                         // Stats row
