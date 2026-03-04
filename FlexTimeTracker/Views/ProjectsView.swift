@@ -172,6 +172,7 @@ struct AddProjectView: View {
                         guard !trimmedName.isEmpty else { return }
                         let project = Project(name: trimmedName, colorHex: selectedColorHex)
                         modelContext.insert(project)
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -184,6 +185,7 @@ struct AddProjectView: View {
 // MARK: - Edit Project
 
 struct EditProjectView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Bindable var project: Project
     @State private var name: String
@@ -251,6 +253,7 @@ struct EditProjectView: View {
                         guard !trimmedName.isEmpty else { return }
                         project.name = trimmedName
                         project.colorHex = selectedColorHex
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)

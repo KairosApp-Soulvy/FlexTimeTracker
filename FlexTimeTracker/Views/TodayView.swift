@@ -62,7 +62,7 @@ struct TodayView: View {
                                 .font(.system(size: 48, weight: .bold, design: .rounded))
                                 .monospacedDigit()
                                 .foregroundStyle(.primary)
-                                .accessibilityLabel("Elapsed time: \(elapsed.hoursMinutesSeconds)")
+                                .accessibilityLabel("Elapsed time: \(elapsed.hoursMinutes)")
                             
                             Button {
                                 withAnimation {
@@ -79,7 +79,7 @@ struct TodayView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.red)
                             .accessibilityLabel("Clock out")
-                            .accessibilityHint("Stop tracking time for current session")
+                            .accessibilityHint("Stops the current time entry")
                         }
                         .padding(.vertical, 8)
                     } else {
@@ -123,7 +123,7 @@ struct TodayView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.green)
                             .accessibilityLabel("Clock in")
-                            .accessibilityHint("Start tracking time")
+                            .accessibilityHint("Starts a new time entry")
                             
                             Button {
                                 showingQuickAdd = true
@@ -136,7 +136,7 @@ struct TodayView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.orange)
                             .accessibilityLabel("Quick add flex time")
-                            .accessibilityHint("Manually add overtime hours")
+                            .accessibilityHint("Add hours worked without clocking in and out")
                         }
                         .padding(.vertical, 8)
                     }

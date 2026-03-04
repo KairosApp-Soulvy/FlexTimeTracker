@@ -54,7 +54,7 @@ final class CrashReporter: @unchecked Sendable {
             name: name,
             reason: reason,
             stackTrace: stackTrace,
-            freeMemoryMB: usedMemoryMB(),
+            usedMemoryMB: usedMemoryMB(),
             freeDiskGB: freeDiskGB()
         )
         
@@ -140,7 +140,6 @@ final class CrashReporter: @unchecked Sendable {
         }
     }
     
-    /// Returns the app's resident memory usage in MB (not free memory)
     private func usedMemoryMB() -> Int {
         var info = mach_task_basic_info()
         var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
@@ -175,7 +174,7 @@ struct CrashLog: Codable {
     let name: String
     let reason: String
     let stackTrace: [String]
-    let freeMemoryMB: Int
+    let usedMemoryMB: Int
     let freeDiskGB: Double
     
     var summary: String {
@@ -183,7 +182,7 @@ struct CrashLog: Codable {
         Crash: \(name) — \(reason)
         App: v\(appVersion) (\(buildNumber))
         OS: iOS \(osVersion), Device: \(deviceModel)
-        Memory: \(freeMemoryMB)MB, Disk: \(String(format: "%.1f", freeDiskGB))GB
+        Memory Used: \(usedMemoryMB)MB, Disk Free: \(String(format: "%.1f", freeDiskGB))GB
         Time: \(timestamp)
         Stack (\(stackTrace.count) frames):
         \(stackTrace.prefix(20).joined(separator: "\n"))

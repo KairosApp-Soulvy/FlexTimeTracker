@@ -284,8 +284,6 @@ struct FlexBalanceView: View {
             modelContext.delete(allUsages[index])
         }
         try? modelContext.save()
-        // Re-sync after deleting usage (to restore bank balances)
-        syncBanksFromEntries()
     }
 }
 

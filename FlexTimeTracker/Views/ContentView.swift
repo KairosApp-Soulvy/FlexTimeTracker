@@ -18,6 +18,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Balance", systemImage: "banknote")
                 }
+                .accessibilityLabel("Flex time balance")
             
             SettingsView()
                 .tabItem {
