@@ -55,6 +55,7 @@ struct AddFlexUsageView: View {
                             note: note
                         )
                         modelContext.insert(usage)
+                        try? modelContext.save()
                         dismiss()
                     }
                 }

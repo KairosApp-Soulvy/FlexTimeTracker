@@ -74,6 +74,7 @@ struct AddEntryView: View {
                             isManualEntry: true
                         )
                         modelContext.insert(entry)
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(hasClockOut && clockOut <= clockIn)

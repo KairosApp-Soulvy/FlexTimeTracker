@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct EditFlexUsageView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Bindable var usage: FlexTimeUsage
     
@@ -50,6 +51,7 @@ struct EditFlexUsageView: View {
                         usage.date = date
                         usage.hours = hours
                         usage.note = note
+                        try? modelContext.save()
                         dismiss()
                     }
                 }
