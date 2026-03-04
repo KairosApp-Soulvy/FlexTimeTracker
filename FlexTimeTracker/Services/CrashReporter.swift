@@ -133,11 +133,12 @@ final class CrashReporter: @unchecked Sendable {
     private func deviceModel() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
-        return withUnsafePointer(to: &systemInfo.machine) {
-            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
-                String(validatingUTF8: $0) ?? "Unknown"
-            }
+        let mirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = mirror.children.reduce("") { id, element in
+            guard let value = element.value as? Int8, value != 0 else { return id }
+            return id + String(UnicodeScalar(UInt8(value)))
         }
+        return identifier.isEmpty ? "Unknown" : identifier
     }
     
     private func usedMemoryMB() -> Int {
