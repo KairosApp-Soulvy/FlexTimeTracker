@@ -219,6 +219,7 @@ struct TodayView: View {
         for index in offsets {
             modelContext.delete(entries[index])
         }
+        try? modelContext.save()
     }
 }
 

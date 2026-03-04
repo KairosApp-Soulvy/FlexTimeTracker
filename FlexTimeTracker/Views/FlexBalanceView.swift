@@ -283,8 +283,7 @@ struct FlexBalanceView: View {
         for index in offsets {
             modelContext.delete(allUsages[index])
         }
-        // Re-sync after deleting usage (to restore bank balances)
-        // This is simplified — in production you'd track which bank each usage drew from
+        try? modelContext.save()
     }
 }
 
