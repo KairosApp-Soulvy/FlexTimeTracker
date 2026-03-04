@@ -82,6 +82,7 @@ struct EditEntryView: View {
                         entry.clockOut = hasClockOut ? clockOut : nil
                         entry.note = note
                         entry.project = selectedProject
+                        try? modelContext.save()
                         dismiss()
                     }
                 }

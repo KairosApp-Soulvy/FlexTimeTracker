@@ -183,6 +183,7 @@ struct AddProjectView: View {
 // MARK: - Edit Project
 
 struct EditProjectView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Bindable var project: Project
     @State private var name: String
@@ -248,6 +249,7 @@ struct EditProjectView: View {
                     Button("Save") {
                         project.name = name
                         project.colorHex = selectedColorHex
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
