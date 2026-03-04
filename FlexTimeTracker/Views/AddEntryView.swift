@@ -73,6 +73,7 @@ struct AddEntryView: View {
                             project: selectedProject
                         )
                         modelContext.insert(entry)
+                        try? modelContext.save()
                         dismiss()
                     }
                 }

@@ -170,6 +170,7 @@ struct AddProjectView: View {
                     Button("Add") {
                         let project = Project(name: name, colorHex: selectedColorHex)
                         modelContext.insert(project)
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
