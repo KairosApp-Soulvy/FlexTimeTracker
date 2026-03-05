@@ -81,7 +81,9 @@ struct ProjectsView: View {
     }
     
     private func archiveProjects(at offsets: IndexSet) {
-        let projectsToArchive = offsets.map { activeProjects[$0] }
+        let projectsToArchive = offsets.compactMap { index in
+            index < activeProjects.count ? activeProjects[index] : nil
+        }
         for project in projectsToArchive {
             project.isArchived = true
         }
