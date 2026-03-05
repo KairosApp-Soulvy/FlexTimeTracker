@@ -155,6 +155,8 @@ struct AddProjectView: View {
                                 .onTapGesture {
                                     selectedColorHex = color.hex
                                 }
+                                .accessibilityLabel(color.name)
+                                .accessibilityAddTraits(selectedColorHex == color.hex ? .isSelected : [])
                         }
                     }
                     .padding(.vertical, 8)
@@ -221,6 +223,8 @@ struct EditProjectView: View {
                                 .onTapGesture {
                                     selectedColorHex = color.hex
                                 }
+                                .accessibilityLabel(color.name)
+                                .accessibilityAddTraits(selectedColorHex == color.hex ? .isSelected : [])
                         }
                     }
                     .padding(.vertical, 8)
