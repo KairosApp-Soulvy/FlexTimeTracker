@@ -134,7 +134,7 @@ final class CrashReporter: @unchecked Sendable {
         var systemInfo = utsname()
         uname(&systemInfo)
         return withUnsafePointer(to: &systemInfo.machine) {
-            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
+            $0.withMemoryRebound(to: CChar.self, capacity: MemoryLayout.size(ofValue: systemInfo.machine)) {
                 String(validatingUTF8: $0) ?? "Unknown"
             }
         }
