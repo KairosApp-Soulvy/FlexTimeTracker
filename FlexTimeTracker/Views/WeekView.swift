@@ -149,6 +149,7 @@ struct WeekView: View {
                     } label: {
                         Image(systemName: "chevron.left")
                     }
+                    .accessibilityLabel("Previous week")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(spacing: 16) {
@@ -164,6 +165,7 @@ struct WeekView: View {
                             Image(systemName: "chevron.right")
                         }
                         .disabled(weekOffset >= 0)
+                        .accessibilityLabel("Next week")
                     }
                 }
             }
