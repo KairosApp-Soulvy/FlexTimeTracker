@@ -13,6 +13,12 @@ struct ExpirationNotificationService {
         // Remove old expiration notifications
         center.removePendingNotificationRequests(withIdentifiers: ["flex-expire-7d", "flex-expire-1d"])
         
+        // Respect user's notification preference
+        let remindersEnabled = UserDefaults.standard.object(forKey: "flexExpirationReminders") == nil
+            ? true
+            : UserDefaults.standard.bool(forKey: "flexExpirationReminders")
+        guard remindersEnabled else { return }
+        
         guard policy != .never else { return }
         
         let activeBanks = banks.filter { !$0.isFullyUsed && !$0.isExpired(policy: policy) }
