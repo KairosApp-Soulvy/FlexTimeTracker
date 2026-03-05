@@ -108,10 +108,12 @@ struct TodayView: View {
                             }
                             
                             Button {
-                                withAnimation {
-                                    let entry = TimeEntry(project: clockInProject)
-                                    modelContext.insert(entry)
-                                    try? modelContext.save()
+                                let entry = TimeEntry(project: clockInProject)
+                                modelContext.insert(entry)
+                                do {
+                                    try modelContext.save()
+                                } catch {
+                                    print("Clock in save error: \(error)")
                                 }
                                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             } label: {
