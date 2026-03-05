@@ -7,15 +7,10 @@
 	<key>teamID</key>
 	<string>3AZDK92P74</string>
 	<key>signingStyle</key>
-	<string>manual</string>
-	<key>provisioningProfiles</key>
-	<dict>
-		<key>com.kovamart.flextimetracker</key>
-		<string>FlexTime App Store Profile</string>
-	</dict>
-	<key>signingCertificate</key>
-	<string>Apple Distribution: Riley Jacob Sorensen (3AZDK92P74)</string>
+	<string>automatic</string>
 	<key>destination</key>
 	<string>upload</string>
+	<key>uploadSymbols</key>
+	<true/>
 </dict>
 </plist>
