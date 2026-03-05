@@ -280,7 +280,7 @@ struct FlexBalanceView: View {
     }
     
     private func deleteUsages(at offsets: IndexSet) {
-        for index in offsets where index < allUsages.count {
+        for index in offsets {
             modelContext.delete(allUsages[index])
         }
         try? modelContext.save()

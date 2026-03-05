@@ -32,6 +32,7 @@
 		FA000004 /* EditFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000004 /* EditFlexUsageView.swift */; };
 		FA000050 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000050 /* FeedbackView.swift */; };
 		FA000051 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000051 /* FeedbackService.swift */; };
+		FA000060 /* FlexTimeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000060 /* FlexTimeOnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		FB000004 /* EditFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlexUsageView.swift; sourceTree = "<group>"; };
 		FB000050 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		FB000051 /* FeedbackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackService.swift; sourceTree = "<group>"; };
+		FB000060 /* FlexTimeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexTimeOnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +121,18 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		AE000020 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				FB000060 /* FlexTimeOnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		AE000004 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AE000020 /* Onboarding */,
 				AB000002 /* ContentView.swift */,
 				AB000006 /* TodayView.swift */,
 				AB000007 /* WeekView.swift */,
@@ -248,6 +259,7 @@
 				FA000040 /* QuickAddFlexView.swift in Sources */,
 				FA000050 /* FeedbackView.swift in Sources */,
 				FA000051 /* FeedbackService.swift in Sources */,
+				FA000060 /* FlexTimeOnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

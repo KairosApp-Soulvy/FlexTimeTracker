@@ -160,7 +160,6 @@ struct TodayView: View {
                             .foregroundStyle(.blue)
                             .monospacedDigit()
                             .contentTransition(.numericText())
-                            .accessibilityLabel("Day total: \(totalForDay.hoursMinutes)")
                     }
                 }
                 
@@ -217,7 +216,7 @@ struct TodayView: View {
     
     private func deleteEntries(at offsets: IndexSet) {
         let entries = entriesForSelectedDate
-        for index in offsets where index < entries.count {
+        for index in offsets {
             modelContext.delete(entries[index])
         }
         try? modelContext.save()

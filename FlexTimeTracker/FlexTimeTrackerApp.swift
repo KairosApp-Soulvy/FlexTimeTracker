@@ -14,7 +14,7 @@ struct FlexTimeTrackerApp: App {
             if hasCompletedOnboarding {
                 ContentView()
             } else {
-                OnboardingView(isComplete: $hasCompletedOnboarding)
+                FlexTimeOnboardingView(isComplete: $hasCompletedOnboarding)
             }
         }
         .modelContainer(for: [TimeEntry.self, FlexTimeUsage.self, FlexBank.self, Project.self])
