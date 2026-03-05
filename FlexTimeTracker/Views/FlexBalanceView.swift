@@ -226,8 +226,10 @@ struct FlexBalanceView: View {
             }
             .onAppear {
                 syncBanksFromEntries()
-                // Only schedule if permission already granted — don't prompt here
-                ExpirationNotificationService.scheduleExpirationAlerts(banks: allBanks, policy: policy)
+                // Only schedule if user has enabled reminders in settings
+                if UserDefaults.standard.object(forKey: "flexExpirationReminders") == nil || UserDefaults.standard.bool(forKey: "flexExpirationReminders") {
+                    ExpirationNotificationService.scheduleExpirationAlerts(banks: allBanks, policy: policy)
+                }
             }
         }
     }
