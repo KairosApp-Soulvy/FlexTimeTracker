@@ -91,6 +91,7 @@ struct EditEntryView: View {
             .confirmationDialog("Delete this entry?", isPresented: $showingDeleteConfirm, titleVisibility: .visible) {
                 Button("Delete", role: .destructive) {
                     modelContext.delete(entry)
+                    try? modelContext.save()
                     dismiss()
                 }
             }

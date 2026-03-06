@@ -120,7 +120,8 @@ struct WeekView: View {
                                 let barWidth = min(CGFloat(dayTotal / (8 * 3600)) * 60, 60)
                                 RoundedRectangle(cornerRadius: 3)
                                     .fill(isToday ? Color.blue : Color.blue.opacity(0.6))
-                                    .frame(width: max(barWidth, 4), height: 8)
+                                            .frame(width: max(barWidth, 4), height: 8)
+                                    .accessibilityHidden(true)
                                 
                                 Text(dayTotal.hoursMinutes)
                                     .font(.subheadline)
