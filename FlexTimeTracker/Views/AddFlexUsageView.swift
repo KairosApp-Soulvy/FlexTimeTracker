@@ -49,9 +49,11 @@ struct AddFlexUsageView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
+                        let effectiveHours = useFullDay ? dailyHours : hours
+                        guard effectiveHours > 0 else { return }
                         let usage = FlexTimeUsage(
                             date: date,
-                            hours: useFullDay ? dailyHours : hours,
+                            hours: effectiveHours,
                             note: note
                         )
                         modelContext.insert(usage)
