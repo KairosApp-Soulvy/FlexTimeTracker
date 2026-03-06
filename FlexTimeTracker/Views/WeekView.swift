@@ -134,6 +134,8 @@ struct WeekView: View {
                                     .frame(width: 70, alignment: .trailing)
                             }
                         }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel("\(day.dayName), \(day.shortDate): \(dayTotal > 0 ? dayTotal.hoursMinutes : "no time tracked")")
                     }
                 }
             }
