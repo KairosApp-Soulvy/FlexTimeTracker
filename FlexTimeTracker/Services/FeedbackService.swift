@@ -5,7 +5,7 @@ import UIKit
 
 /// Reusable feedback service that creates GitHub Issues via REST API.
 /// Drop this file into any iOS app — no dependencies required.
-final class FeedbackService {
+final class FeedbackService: Sendable {
     
     // MARK: - Configuration
     
