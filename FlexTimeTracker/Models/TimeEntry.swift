@@ -18,8 +18,8 @@ final class TimeEntry {
     }
     
     var duration: TimeInterval {
-        guard let clockOut else { return Date.now.timeIntervalSince(clockIn) }
-        return clockOut.timeIntervalSince(clockIn)
+        guard let clockOut else { return max(0, Date.now.timeIntervalSince(clockIn)) }
+        return max(0, clockOut.timeIntervalSince(clockIn))
     }
     
     var isActive: Bool {
