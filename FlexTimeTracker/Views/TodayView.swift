@@ -291,6 +291,8 @@ struct ProjectChip: View {
             }
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("\(name) project")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 
