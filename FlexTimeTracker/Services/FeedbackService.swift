@@ -106,6 +106,10 @@ final class FeedbackService {
             "labels": [category.label]
         ]
         
+        guard Self.token != "GITHUB_FEEDBACK_TOKEN" else {
+            return FeedbackResult(success: false, issueURL: nil, error: "Feedback token not configured. Please set up a GitHub personal access token.")
+        }
+        
         guard let url = URL(string: "https://api.github.com/repos/\(repository)/issues") else {
             return FeedbackResult(success: false, issueURL: nil, error: "Invalid repository URL")
         }
