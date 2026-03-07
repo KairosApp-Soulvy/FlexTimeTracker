@@ -216,7 +216,7 @@ struct TodayView: View {
     
     private func deleteEntries(at offsets: IndexSet) {
         let entries = entriesForSelectedDate
-        for index in offsets {
+        for index in offsets where index < entries.count {
             modelContext.delete(entries[index])
         }
         try? modelContext.save()
