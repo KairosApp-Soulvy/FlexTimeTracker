@@ -25,7 +25,6 @@
 		FA000030 /* CrashReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000030 /* CrashReporter.swift */; };
 		FA000020 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000020 /* Project.swift */; };
 		FA000021 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000021 /* ProjectsView.swift */; };
-		FA000022 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000022 /* OnboardingView.swift */; };
 		FA000040 /* QuickAddFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000040 /* QuickAddFlexView.swift */; };
 		FA000002 /* FlexBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000002 /* FlexBalanceView.swift */; };
 		FA000003 /* AddFlexUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000003 /* AddFlexUsageView.swift */; };
@@ -55,7 +54,6 @@
 		FB000030 /* CrashReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReporter.swift; sourceTree = "<group>"; };
 		FB000020 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		FB000021 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
-		FB000022 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FB000040 /* QuickAddFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAddFlexView.swift; sourceTree = "<group>"; };
 		FB000002 /* FlexBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBalanceView.swift; sourceTree = "<group>"; };
 		FB000003 /* AddFlexUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlexUsageView.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 				AB000009 /* AddEntryView.swift */,
 				AB00000A /* EditEntryView.swift */,
 				FB000021 /* ProjectsView.swift */,
-				FB000022 /* OnboardingView.swift */,
 				FB000040 /* QuickAddFlexView.swift */,
 				FB000050 /* FeedbackView.swift */,
 			);
@@ -255,7 +252,6 @@
 				AA00000A /* EditEntryView.swift in Sources */,
 				FA000020 /* Project.swift in Sources */,
 				FA000021 /* ProjectsView.swift in Sources */,
-				FA000022 /* OnboardingView.swift in Sources */,
 				FA000040 /* QuickAddFlexView.swift in Sources */,
 				FA000050 /* FeedbackView.swift in Sources */,
 				FA000051 /* FeedbackService.swift in Sources */,

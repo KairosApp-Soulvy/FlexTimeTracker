@@ -377,6 +377,8 @@ struct UsageRow: View {
             }
         }
         .foregroundStyle(.primary)
+        .accessibilityLabel("Flex time usage: \(usage.hoursFormatted) on \(usage.date.shortDate)\(usage.note.isEmpty ? "" : ", \(usage.note)")")
+        .accessibilityHint("Tap to edit")
         .sheet(isPresented: $showingEdit) {
             EditFlexUsageView(usage: usage)
         }
