@@ -53,12 +53,14 @@ struct ProjectsView: View {
                             .swipeActions(edge: .leading) {
                                 Button("Restore") {
                                     project.isArchived = false
+                                    try? modelContext.save()
                                 }
                                 .tint(.green)
                             }
                             .swipeActions(edge: .trailing) {
                                 Button("Delete", role: .destructive) {
                                     modelContext.delete(project)
+                                    try? modelContext.save()
                                 }
                             }
                     }
@@ -87,6 +89,7 @@ struct ProjectsView: View {
         for project in projectsToArchive {
             project.isArchived = true
         }
+        try? modelContext.save()
     }
 }
 
