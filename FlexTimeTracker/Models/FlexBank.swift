@@ -72,11 +72,12 @@ final class FlexBank {
     }
     
     var remainingFormatted: String {
-        if remainingHours == Double(Int(remainingHours)) {
-            return "\(Int(remainingHours))h"
+        let clamped = max(0, remainingHours)
+        if clamped == Double(Int(clamped)) {
+            return "\(Int(clamped))h"
         }
-        let h = Int(remainingHours)
-        let m = Int((remainingHours - Double(h)) * 60)
+        let h = Int(clamped)
+        let m = Int((clamped - Double(h)) * 60)
         return h > 0 ? "\(h)h \(m)m" : "\(m)m"
     }
 }

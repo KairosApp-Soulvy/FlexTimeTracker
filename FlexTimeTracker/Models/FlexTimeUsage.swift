@@ -18,11 +18,12 @@ final class FlexTimeUsage {
     }
     
     var hoursFormatted: String {
-        if hours == Double(Int(hours)) {
-            return "\(Int(hours))h"
+        let clamped = max(0, hours)
+        if clamped == Double(Int(clamped)) {
+            return "\(Int(clamped))h"
         }
-        let h = Int(hours)
-        let m = Int((hours - Double(h)) * 60)
+        let h = Int(clamped)
+        let m = Int((clamped - Double(h)) * 60)
         return h > 0 ? "\(h)h \(m)m" : "\(m)m"
     }
 }

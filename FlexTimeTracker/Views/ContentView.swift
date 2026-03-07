@@ -8,11 +8,13 @@ struct ContentView: View {
                 .tabItem {
                     Label("Today", systemImage: "clock.fill")
                 }
+                .accessibilityLabel("Today's time entries")
             
             WeekView()
                 .tabItem {
                     Label("Week", systemImage: "calendar")
                 }
+                .accessibilityLabel("Weekly time summary")
             
             FlexBalanceView()
                 .tabItem {
@@ -24,6 +26,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+                .accessibilityLabel("App settings")
         }
     }
 }

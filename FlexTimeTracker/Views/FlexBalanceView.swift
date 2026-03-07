@@ -219,6 +219,8 @@ struct FlexBalanceView: View {
                     } label: {
                         Label("Use FlexTime", systemImage: "plus")
                     }
+                    .accessibilityLabel("Use flex time")
+                    .accessibilityHint("Log flex time usage")
                 }
             }
             .sheet(isPresented: $showingAddUsage) {

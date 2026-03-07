@@ -128,6 +128,8 @@ struct FeedbackView: View {
     
     private func sendFeedback() async {
         isSending = true
+        let generator = UINotificationFeedbackGenerator()
+        generator.prepare()
         let service = FeedbackService(repository: repository)
         let result = await service.submit(
             category: category,
@@ -137,11 +139,9 @@ struct FeedbackView: View {
         isSending = false
         
         if result.success {
-            let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
             showSuccess = true
         } else {
-            let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.error)
             errorMessage = result.error ?? "Unknown error"
             showError = true

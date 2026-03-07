@@ -66,12 +66,10 @@ final class FeedbackService {
     private var deviceModel: String {
         var systemInfo = utsname()
         uname(&systemInfo)
-        let mirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = mirror.children.reduce("") { id, element in
-            guard let value = element.value as? Int8, value != 0 else { return id }
-            return id + String(UnicodeScalar(UInt8(value)))
+        return withUnsafeBytes(of: &systemInfo.machine) { buf in
+            guard let base = buf.baseAddress?.assumingMemoryBound(to: CChar.self) else { return "Unknown" }
+            return String(cString: base)
         }
-        return identifier
     }
     
     // MARK: - Submit Feedback
