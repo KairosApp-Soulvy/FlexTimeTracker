@@ -808,7 +808,7 @@ struct ValuePreviewScreen: View {
                     .frame(height: 50)
                     
                     HStack {
-                        ForEach(["M", "T", "W", "T", "F", "S", "S"], id: \.self) { day in
+                        ForEach(Array(["M", "T", "W", "T", "F", "S", "S"].enumerated()), id: \.offset) { _, day in
                             Text(day)
                                 .font(.system(size: 11, design: .rounded))
                                 .foregroundStyle(.tertiary)
